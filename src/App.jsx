@@ -8,11 +8,12 @@ function App() {
     <>
       <MenuBar />
       <div className="container">
-        <h1>Welcome to React Router!</h1>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="about" element={<Sobre />} />
-        </Routes>
+        <div className="app-routes">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<Sobre />} />
+          </Routes>
+        </div>
       </div>
     </>
   );
