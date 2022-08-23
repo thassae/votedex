@@ -17,11 +17,9 @@ function Home() {
         <Filtro />
 
         <center>
-        <Link to="sobre">
-          <Button variant="contained">
+          <Button variant="contained" component={Link} to="sobre">
             Sobre o autor, licenças e afins. 🤔
           </Button>
-        </Link>
         </center>
       </div>
     </>

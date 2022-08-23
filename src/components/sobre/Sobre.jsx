@@ -34,11 +34,9 @@ function Sobre() {
         créditos e me avisa, por favor? 🤣🤣🤣
       </p>
       <center>
-        <Link to="/">
-          <Button variant="contained">
-            Ok, me devolve pra página inicial! 😡
-          </Button>
-        </Link>
+        <Button variant="contained" component={Link} to="/">
+          Ok, me devolve pra página inicial! 😡
+        </Button>
       </center>
     </>
   );
