@@ -6,12 +6,12 @@ import Sobre from "./components/sobre/Sobre";
 function App() {
   return (
     <>
-      <MenuBar />
+      {/* <MenuBar /> */}
       <div className="container">
         <div className="app-routes">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="about" element={<Sobre />} />
+            <Route path="sobre" element={<Sobre />} />
           </Routes>
         </div>
       </div>

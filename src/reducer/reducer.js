@@ -1,6 +1,7 @@
 export const TiposAcoes = {
   ATUALIZA_FILTRO: "ATUALIZA_FILTRO",
   ATUALIZA_SELECAO: "ATUALIZA_SELECAO",
+  REINICIA_SELECAO: "REINICIA_SELECAO",
 };
 
 export const ESTADO_INICIAL = {
@@ -45,6 +46,11 @@ export function reducer(state, action) {
           ...state.selecionados,
           [action.payload.nome]: action.payload.dados,
         },
+      };
+    case TiposAcoes.REINICIA_SELECAO:
+      return {
+        ...state,
+        selecionados: action.payload.dados,
       };
     default:
       throw new Error();

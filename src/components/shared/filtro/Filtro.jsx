@@ -116,7 +116,14 @@ function Filtro() {
       payload: { nome: nomeFiltro, dados: event.target.value },
     };
     dispatch(obj);
-    console.log(state);
+  };
+
+  const reiniciaForm = () => {
+    const obj = {
+      type: TiposAcoes.REINICIA_SELECAO,
+      payload: { dados: ESTADO_INICIAL.selecionados },
+    };
+    dispatch(obj);
   };
 
   return (
@@ -199,7 +206,9 @@ function Filtro() {
             ))}
             <ListSubheader>Federação Partidária</ListSubheader>
             {state.filtros.federacoes.map((federacao) => (
-              <MenuItem value={federacao.codigo}>{federacao.composicao}</MenuItem>
+              <MenuItem value={federacao.codigo}>
+                {federacao.composicao}
+              </MenuItem>
             ))}
             <ListSubheader>Partidos</ListSubheader>
             {state.filtros.partidos.map((partido) => (
@@ -295,7 +304,9 @@ function Filtro() {
       </Box>
       <hr />
       <Stack spacing={2} direction="row">
-        <Button variant="outlined">Reiniciar</Button>
+        <Button variant="outlined" onClick={reiniciaForm}>
+          Reiniciar
+        </Button>
         <Button variant="contained">Buscar</Button>
       </Stack>
     </div>
