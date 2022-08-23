@@ -1,37 +1,47 @@
+import { BASE_URL, URLBusca } from "./constantes";
 import { getData } from "./request";
-import { VALUES_URL } from "./constantes";
 
 export async function getEstados() {
-  let url = VALUES_URL.replace("%FIELD%", "nm_ue");
+  let url = BASE_URL + URLBusca.UF;
   return await getData(url);
 }
 
 export async function getCargos() {
-    let url = VALUES_URL.replace("%FIELD%", "ds_cargo");
-    return await getData(url);
-  }
+  let url = BASE_URL + URLBusca.CARGOS;
+  return await getData(url);
+}
 
 export async function getPartidos() {
-  let url = VALUES_URL.replace("%FIELD%", "sg_partido");
+  let url = BASE_URL + URLBusca.PARTIDOS;
+  return await getData(url);
+}
+
+export async function getFederacoes() {
+  let url = BASE_URL + URLBusca.FEDERACOES;
   return await getData(url);
 }
 
 export async function getGeneros() {
-  let url = VALUES_URL.replace("%FIELD%", "ds_genero");
+  let url = BASE_URL + URLBusca.GENERO;
   return await getData(url);
 }
 
 export async function getCorRaca() {
-  let url = VALUES_URL.replace("%FIELD%", "ds_cor_raca");
+  let url = BASE_URL + URLBusca.COR_RACA;
   return await getData(url);
 }
 
 export async function getOcupacao() {
-  let url = VALUES_URL.replace("%FIELD%", "ds_ocupacao");
+  let url = BASE_URL + URLBusca.OCUPACAO;
   return await getData(url);
 }
 
 export async function getGrausInstrucao() {
-  let url = VALUES_URL.replace("%FIELD%", "ds_grau_instrucao");
+  let url = BASE_URL + URLBusca.INSTRUCAO;
+  return await getData(url);
+}
+
+export async function getEstadoCivil() {
+  let url = BASE_URL + URLBusca.ESTADO_CIVIL;
   return await getData(url);
 }

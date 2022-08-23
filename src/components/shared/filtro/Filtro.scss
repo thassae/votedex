@@ -1,0 +1,13 @@
+.filtro {
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 10px;
+  column-gap: 20px;
+  hr {
+    width: 100%;
+  }
+}

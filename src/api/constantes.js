@@ -1,9 +1,19 @@
-export const QUERY_URL =
-  "https://data.mongodb-api.com/app/votedex-xmisu/endpoint/get_candidatos?queryParams=%QUERY_PARAMS%";
-export const COUNT_URL =
-  "https://data.mongodb-api.com/app/votedex-xmisu/endpoint/count_candidatos?queryParams=%QUERY_PARAMS%";
-export const VALUES_URL =
-  "https://data.mongodb-api.com/app/votedex-xmisu/endpoint/get_values?field=%FIELD%";
+export const BASE_URL =
+  "https://data.mongodb-api.com/app/votedex-xmisu/endpoint/";
+
+export const URLBusca = {
+  BUSCA_CANDIDATOS: "get_candidatos?queryParams=%QUERY_PARAMS%",
+  CONTA_CANDIDATOS: "count_candidatos?queryParams=%QUERY_PARAMS%",
+  CARGOS: "get_cargos",
+  COR_RACA: "get_cor_raca",
+  ESTADO_CIVIL: "get_estado_civil",
+  UF: "get_uf",
+  FEDERACOES: "get_federacoes",
+  GENERO: "get_genero",
+  INSTRUCAO: "get_instrucao",
+  OCUPACAO: "get_ocupacao",
+  PARTIDOS: "get_partidos"
+};
 
 export const PARTIDOS_ESQUERDA = [12, 13, 16, 18, 21, 29, 40, 43, 50, 65, 80];
 export const PARTIDOS_CENTRO = [
