@@ -1,6 +1,5 @@
-import * as React from "react";
-import Link from "@mui/material/Link";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
+import * as React from "react";
 import { MOCK_DATA } from "../../../api/constantes";
 
 const url =
@@ -75,12 +74,7 @@ const columns = [
     field: "ds_ocupacao",
     headerName: "Ocupação",
     width: 250,
-  },
-  {
-    field: "ds_estado_civil",
-    headerName: "Estado Civil",
-    width: 250,
-  },
+  }
 ];
 
 const rows = MOCK_DATA;

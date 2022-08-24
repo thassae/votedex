@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import Home from "./components/home/Home";
-import MenuBar from "./components/shared/menu-bar/MenuBar";
 import Sobre from "./components/sobre/Sobre";
 function App() {
   return (
