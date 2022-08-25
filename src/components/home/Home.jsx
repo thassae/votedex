@@ -21,7 +21,10 @@ function Home(props) {
         </p>
         <Filtro filtros={state.filtros} selecionados={state.selecionados} />
         <br></br>
-        <TabelaCandidatos candidatos={state.candidatos} />
+        <TabelaCandidatos
+          candidatos={state.candidatos}
+          loading={state.loading}
+        />
         <br></br>
         <center>
           <Button variant="contained" component={Link} to="sobre">

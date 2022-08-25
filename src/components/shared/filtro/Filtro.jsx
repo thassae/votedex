@@ -18,6 +18,7 @@ import {
   getPartidos,
 } from "../../../api/filtros";
 import {
+  ativarLoading,
   atualizaCandidatos,
   atualizaEstadoFiltro,
   atualizaSelecaoFiltro,
@@ -112,12 +113,16 @@ function Filtro(props) {
   };
 
   const buscarCandidatos = () => {
+    dispatch(ativarLoading(true));
     const fetchCandidatos = async () => {
       const data = await getCandidatos(selecionados);
+      if (!data.length) {
+        data.push("");
+      }
       dispatch(atualizaCandidatos(data));
     };
 
-    fetchCandidatos();
+    fetchCandidatos().finally(() => dispatch(ativarLoading(false)));
   };
 
   return (

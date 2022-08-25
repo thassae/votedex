@@ -1,5 +1,7 @@
 import WarningIcon from "@mui/icons-material/Warning";
+import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import CircularProgress from "@mui/material/CircularProgress";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import "./TabelaCandidatos.scss";
 const url =
@@ -99,35 +101,53 @@ const columns = [
   },
 ];
 
-//const rows = MOCK_DATA;
-
 export default function TabelaCandidatos(props) {
-  const { candidatos } = props;
+  const { candidatos, loading } = props;
 
-  return candidatos.length > 0 ? (
-    <>
-      <div className="mobileInstructions">
-        <strong>Usuários de celular:&nbsp;</strong>por favor, toquem na tabela e
-        deslizem para os lados para visualizar mais informações.
-      </div>
-      <DataGrid
-        autoHeight
-        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-        getRowId={(row) => row._id}
-        rows={candidatos}
-        columns={columns}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
-        checkboxSelection={false}
-        disableSelectionOnClick={false}
-      />
-    </>
+  return !loading ? (
+    candidatos.length > 0 ? (
+      candidatos[0] !== "" ? (
+        <>
+          <div className="mobileInstructions">
+            <strong>Usuários de celular:&nbsp;</strong>por favor, toquem na
+            tabela e deslizem para os lados para visualizar mais informações.
+          </div>
+          <DataGrid
+            autoHeight
+            localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+            getRowId={(row) => row._id}
+            rows={candidatos}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+            checkboxSelection={false}
+            disableSelectionOnClick={false}
+          />
+        </>
+      ) : (
+        <center>
+          <p>
+            Infelizmente, sua busca não retornou resultados. Por favor, tente
+            refazer suas seleções de filtro.
+          </p>
+        </center>
+      )
+    ) : (
+      <center>
+        <p>
+          No momento não há nenhum filtro selecionado. Selecione alguns filtros
+          e clique em "Buscar" para trazer a lista de candidatos.
+        </p>
+      </center>
+    )
   ) : (
-    <center>
-      <p>
-        No momento não há nenhum filtro selecionado. Selecione alguns filtros e
-        clique em "Buscar" para trazer a lista de candidatos.
-      </p>
-    </center>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="20vh"
+    >
+      <CircularProgress size={128} />
+    </Box>
   );
 }

@@ -25,3 +25,8 @@ export const reiniciaForm = () => ({
     },
   },
 });
+
+export const ativarLoading = (ativado) => ({
+  type: TiposAcoes.LIGA_DESLIGA_LOADING,
+  payload: ativado,
+});

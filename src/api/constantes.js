@@ -25,6 +25,7 @@ export const ESTADO_INICIAL = {
     estadosCivis: [],
   },
   candidatos: [],
+  loading: false,
 };
 
 export const BASE_URL =

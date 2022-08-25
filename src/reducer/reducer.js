@@ -3,6 +3,7 @@ export const TiposAcoes = {
   ATUALIZA_SELECAO: "ATUALIZA_SELECAO",
   REINICIA_SELECAO: "REINICIA_SELECAO",
   ATUALIZA_CANDIDATOS: "ATUALIZA_CANDIDATOS",
+  LIGA_DESLIGA_LOADING: "LIGA_DESLIGA_LOADING",
 };
 
 export function reducer(state, action) {
@@ -33,6 +34,11 @@ export function reducer(state, action) {
       return {
         ...state,
         candidatos: action.payload.dados,
+      };
+    case TiposAcoes.LIGA_DESLIGA_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       throw new Error();
