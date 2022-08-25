@@ -57,22 +57,30 @@ export const PARTIDOS_ESQUERDA = [
   "80",
 ];
 export const PARTIDOS_CENTRO = [
-  "10",
   "11",
-  "14",
   "15",
   "19",
-  "20",
-  "22",
   "36",
   "44",
-  "51",
   "55",
   "70",
   "77",
   "90",
 ];
-export const PARTIDOS_DIREITA = ["23", "27", "28", "30", "33", "35", "45"];
+export const PARTIDOS_DIREITA = [
+  "10",
+  "14",
+  "20",
+  "22",
+  "23",
+  "27",
+  "28",
+  "30",
+  "33",
+  "35",
+  "45",
+  "51",
+];
 
 export const ESPECTRO_POLITICO = [
   {

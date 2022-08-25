@@ -1,7 +1,6 @@
 import WarningIcon from "@mui/icons-material/Warning";
 import Chip from "@mui/material/Chip";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
-import { useEffect } from "react";
 
 const url =
   "https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2022/2040602022/#UF#/#CODIGO#";
@@ -38,7 +37,7 @@ const columns = [
     field: "nr_candidato",
     headerName: "Número",
     type: "number",
-    flex: 0.5,
+    width: 75,
     align: "center",
     headerAlign: "center",
     renderCell: RenderBold,
@@ -61,14 +60,14 @@ const columns = [
   {
     field: "sg_partido",
     headerName: "Partido",
-    flex: 1,
+    width: 150,
     valueGetter: (params) =>
       `${params.row.sg_partido || ""} (${params.row.nr_partido || ""})`,
   },
   {
     field: "nr_idade_data_posse",
     headerName: "Idade na posse",
-    flex: 1,
+    width: 150,
     valueGetter: (params) =>
       `${params.row.nr_idade_data_posse || ""} (${
         params.row.dt_nascimento || ""
@@ -77,12 +76,12 @@ const columns = [
   {
     field: "ds_estado_civil",
     headerName: "Estado Civil",
-    flex: 1,
+    width: 200,
   },
   {
     field: "sg_uf_nascimento",
     headerName: "Naturalidade",
-    flex: 1,
+    width: 200,
     valueGetter: (params) =>
       `${params.row.nm_municipio_nascimento || ""} (${
         params.row.sg_uf_nascimento || ""
@@ -91,12 +90,12 @@ const columns = [
   {
     field: "ds_genero",
     headerName: "Gênero",
-    flex: 1,
+    width: 200,
   },
   {
     field: "ds_ocupacao",
     headerName: "Ocupação",
-    flex: 1,
+    width: 250,
   },
 ];
 
@@ -104,10 +103,6 @@ const columns = [
 
 export default function TabelaCandidatos(props) {
   const { candidatos } = props;
-
-  useEffect(() => {
-    console.log(candidatos);
-  }, [candidatos]);
 
   return candidatos.length > 0 ? (
     <DataGrid

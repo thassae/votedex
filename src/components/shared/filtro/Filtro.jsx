@@ -111,7 +111,6 @@ function Filtro(props) {
   };
 
   const buscarCandidatos = () => {
-    console.log(selecionados);
     const fetchCandidatos = async () => {
       const data = await getCandidatos(selecionados);
       dispatch(atualizaCandidatos(data));
@@ -210,7 +209,7 @@ function Filtro(props) {
               onChange={(event) => handleSwitchChange(event, "reeleicao")}
             />
           }
-          label="Somente candidatos à reeleição"
+          label="Somente candidatos a reeleição."
         />
       </FormGroup>
       <hr />
