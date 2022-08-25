@@ -37,6 +37,7 @@ const MultiSelect = (props) => {
       <FormControl fullWidth size="small">
         <InputLabel id={id + "-label"}>{label}</InputLabel>
         <Select
+          MenuProps={{ PaperProps: { sx: { maxHeight: 512 } } }}
           disabled={disabled}
           labelId={id + "-label"}
           id={id}

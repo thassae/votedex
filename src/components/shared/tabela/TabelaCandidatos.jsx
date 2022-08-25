@@ -1,7 +1,7 @@
 import WarningIcon from "@mui/icons-material/Warning";
 import Chip from "@mui/material/Chip";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
-
+import "./TabelaCandidatos.scss";
 const url =
   "https://divulgacandcontas.tse.jus.br/divulga/#/candidato/2022/2040602022/#UF#/#CODIGO#";
 const RenderCandidatoLink = (props) => {
@@ -105,17 +105,23 @@ export default function TabelaCandidatos(props) {
   const { candidatos } = props;
 
   return candidatos.length > 0 ? (
-    <DataGrid
-      autoHeight
-      localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
-      getRowId={(row) => row._id}
-      rows={candidatos}
-      columns={columns}
-      pageSize={10}
-      rowsPerPageOptions={[10]}
-      checkboxSelection={false}
-      disableSelectionOnClick={false}
-    />
+    <>
+      <div className="mobileInstructions">
+        <strong>Usuários de celular:&nbsp;</strong>por favor, toquem na tabela e
+        deslizem para os lados para visualizar mais informações.
+      </div>
+      <DataGrid
+        autoHeight
+        localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
+        getRowId={(row) => row._id}
+        rows={candidatos}
+        columns={columns}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
+        checkboxSelection={false}
+        disableSelectionOnClick={false}
+      />
+    </>
   ) : (
     <center>
       <p>
