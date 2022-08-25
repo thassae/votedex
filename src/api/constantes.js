@@ -12,6 +12,7 @@ export const ESTADO_INICIAL = {
   },
   selecionados: {
     nome: "",
+    numero: "",
     reeleicao: "N",
     cargos: [],
     estados: [],

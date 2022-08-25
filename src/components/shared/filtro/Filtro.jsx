@@ -3,6 +3,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
 import Switch from "@mui/material/Switch";
+import Grid from "@mui/material/Grid";
 import { useContext, useEffect } from "react";
 import { ESPECTRO_POLITICO } from "../../../api/constantes";
 import {
@@ -121,106 +122,138 @@ function Filtro(props) {
 
   return (
     <div className="filtro">
-      {/* <SearchBox
-        id="nome"
-        label="Nome"
-        selectedList={selecionados}
-        handlerEvent={handleChange}
-      /> */}
-      <MultiSelect
-        id="cargos"
-        label="Cargo"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="estados"
-        label="Estados"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-        disabled={
-          selecionados.cargos.length === 1 && selecionados.cargos.includes("1")
-        }
-      />
-      <MultiSelect
-        id="partidos"
-        label="Partido / Espectro Político"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="generos"
-        label="Gênero"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="coresRacas"
-        label="Cor/Raça"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="estadosCivis"
-        label="Estado Civil"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="instrucoes"
-        label="Instrução"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <MultiSelect
-        id="ocupacoes"
-        label="Ocupação"
-        selectedList={selecionados}
-        optionList={filtros}
-        keyField="codigo"
-        valueField="nome"
-        handlerEvent={handleChange}
-      />
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <Switch
-              onChange={(event) => handleSwitchChange(event, "reeleicao")}
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <SearchBox
+            id="numero"
+            label="Número"
+            selectedList={selecionados}
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <SearchBox
+            id="nome"
+            label="Nome"
+            selectedList={selecionados}
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="estados"
+            label="Estados"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+            disabled={
+              selecionados.cargos.length === 1 &&
+              selecionados.cargos.includes("1")
+            }
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="cargos"
+            label="Cargo"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="partidos"
+            label="Partido / Espectro Político"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="generos"
+            label="Gênero"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="coresRacas"
+            label="Cor/Raça"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="estadosCivis"
+            label="Estado Civil"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="instrucoes"
+            label="Instrução"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <MultiSelect
+            id="ocupacoes"
+            label="Ocupação"
+            selectedList={selecionados}
+            optionList={filtros}
+            keyField="codigo"
+            valueField="nome"
+            handlerEvent={handleChange}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch
+                  onChange={(event) => handleSwitchChange(event, "reeleicao")}
+                />
+              }
+              label="Somente candidatos a reeleição."
             />
-          }
-          label="Somente candidatos a reeleição."
-        />
-      </FormGroup>
-      <hr />
-      <Stack spacing={2} direction="row">
-        <Button variant="outlined" onClick={reiniciarFiltro}>
-          Reiniciar
-        </Button>
-        <Button variant="contained" onClick={buscarCandidatos}>
-          Buscar
-        </Button>
-      </Stack>
+          </FormGroup>
+        </Grid>
+        <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Stack spacing={2} direction="row">
+            <Button variant="outlined" onClick={reiniciarFiltro}>
+              Reiniciar
+            </Button>
+            <Button variant="contained" onClick={buscarCandidatos}>
+              Buscar
+            </Button>
+          </Stack>
+        </Grid>
+      </Grid>
     </div>
   );
 }

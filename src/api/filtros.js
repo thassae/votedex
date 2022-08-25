@@ -65,37 +65,35 @@ export async function getCandidatos(filtrosSelecionados) {
 /* Funções auxiliares */
 const montaFiltroBusca = (filtrosSelecionados) => {
   return JSON.stringify({
-    nm_urna_candidato:
-      filtrosSelecionados.nome === ""
+    ...montaFiltroNome(filtrosSelecionados.nome),
+    ...montaFiltroPartidos(filtrosSelecionados.partidos),
+    nr_candidato:
+      filtrosSelecionados.numero === ""
         ? { $ne: null }
-        : filtrosSelecionados.nome,
-    cd_cargo: filtrosSelecionados.cargos.length
-      ? { $in: filtrosSelecionados.cargos }
-      : { $ne: null },
-    sg_ue: filtrosSelecionados.estados.length
-      ? { $in: filtrosSelecionados.estados }
-      : { $ne: null },
-    cd_genero: filtrosSelecionados.generos.length
-      ? { $in: filtrosSelecionados.generos }
-      : { $ne: null },
-    cd_grau_instrucao: filtrosSelecionados.instrucoes.length
-      ? { $in: filtrosSelecionados.instrucoes }
-      : { $ne: null },
-    cd_cor_raca: filtrosSelecionados.coresRacas.length
-      ? { $in: filtrosSelecionados.coresRacas }
-      : { $ne: null },
-    cd_estado_civil: filtrosSelecionados.estadosCivis.length
-      ? { $in: filtrosSelecionados.estadosCivis }
-      : { $ne: null },
-    cd_ocupacao: filtrosSelecionados.ocupacoes.length
-      ? { $in: filtrosSelecionados.ocupacoes }
-      : { $ne: null },
+        : filtrosSelecionados.numero,
+    cd_cargo: montaFiltroMultiselect(filtrosSelecionados.cargos),
+    sg_ue: montaFiltroMultiselect(filtrosSelecionados.estados),
+    cd_genero: montaFiltroMultiselect(filtrosSelecionados.generos),
+    cd_grau_instrucao: montaFiltroMultiselect(filtrosSelecionados.instrucoes),
+    cd_cor_raca: montaFiltroMultiselect(filtrosSelecionados.coresRacas),
+    cd_estado_civil: montaFiltroMultiselect(filtrosSelecionados.estadosCivis),
+    cd_ocupacao: montaFiltroMultiselect(filtrosSelecionados.ocupacoes),
     st_reeleicao:
       filtrosSelecionados.reeleicao === "S"
         ? filtrosSelecionados.reeleicao
         : { $ne: null },
-    ...montaFiltroPartidos(filtrosSelecionados.partidos),
   });
+};
+
+const montaFiltroNome = (nome) => {
+  if (nome !== "") {
+    return { $text: { $search: nome } };
+  }
+  return {};
+};
+
+const montaFiltroMultiselect = (filtro) => {
+  return filtro.length ? { $in: filtro } : { $ne: null };
 };
 
 const montaFiltroPartidos = (filtroPartidos) => {
