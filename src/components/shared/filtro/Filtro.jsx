@@ -70,7 +70,7 @@ function Filtro(props) {
           titulo: "Partidos",
           data: dataPartidos.map((partido) => ({
             codigo: partido.numero,
-            nome: partido.nome,
+            nome: partido.sigla,
           })),
         },
       ];
