@@ -2,31 +2,7 @@ export const TiposAcoes = {
   ATUALIZA_FILTRO: "ATUALIZA_FILTRO",
   ATUALIZA_SELECAO: "ATUALIZA_SELECAO",
   REINICIA_SELECAO: "REINICIA_SELECAO",
-};
-
-export const ESTADO_INICIAL = {
-  filtros: {
-    cargos: [],
-    estados: [],
-    coresRacas: [],
-    generos: [],
-    ocupacoes: [],
-    partidos: [],
-    instrucoes: [],
-    federacoes: [],
-    estadosCivis: [],
-  },
-  selecionados: {
-    cargos: [],
-    estados: [],
-    coresRacas: [],
-    generos: [],
-    ocupacoes: [],
-    partidos: [],
-    instrucoes: [],
-    federacoes: [],
-    estadosCivis: [],
-  },
+  ATUALIZA_CANDIDATOS: "ATUALIZA_CANDIDATOS",
 };
 
 export function reducer(state, action) {
@@ -50,7 +26,13 @@ export function reducer(state, action) {
     case TiposAcoes.REINICIA_SELECAO:
       return {
         ...state,
-        selecionados: action.payload.dados,
+        selecionados: action.payload.dados.selecionados,
+        candidatos: action.payload.dados.candidatos,
+      };
+    case TiposAcoes.ATUALIZA_CANDIDATOS:
+      return {
+        ...state,
+        candidatos: action.payload.dados,
       };
     default:
       throw new Error();

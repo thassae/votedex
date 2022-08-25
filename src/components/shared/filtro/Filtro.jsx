@@ -1,77 +1,85 @@
 import Button from "@mui/material/Button";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
 import Stack from "@mui/material/Stack";
-import { useEffect, useReducer } from "react";
+import Switch from "@mui/material/Switch";
+import { useContext, useEffect } from "react";
 import { ESPECTRO_POLITICO } from "../../../api/constantes";
-
 import {
+  getCandidatos,
   getCargos,
   getCorRaca,
   getEstadoCivil,
   getEstados,
-  getFederacoes,
   getGeneros,
   getGrausInstrucao,
   getOcupacao,
   getPartidos,
 } from "../../../api/filtros";
-import { ESTADO_INICIAL, reducer, TiposAcoes } from "../../../reducer/reducer";
+import {
+  atualizaCandidatos,
+  atualizaEstadoFiltro,
+  atualizaSelecaoFiltro,
+  reiniciaForm,
+} from "../../../reducer/actions";
+import { DispatchContext } from "../../../reducer/context";
 import MultiSelect from "../multi-select/Multiselect";
+import SearchBox from "../search-box/SearchBox";
 import "./Filtro.scss";
-function Filtro() {
-  const [state, dispatch] = useReducer(reducer, ESTADO_INICIAL);
 
-  const atualizaEstadoFiltro = (nomeFiltro, dados) => {
-    const obj = {
-      type: TiposAcoes.ATUALIZA_FILTRO,
-      payload: { nome: nomeFiltro, dados },
-    };
-    dispatch(obj);
-  };
+function Filtro(props) {
+  const { filtros, selecionados } = props;
+
+  const dispatch = useContext(DispatchContext);
 
   useEffect(() => {
     const fetchCargos = async () => {
       const data = await getCargos();
-      atualizaEstadoFiltro("cargos", [{ data }]);
+      dispatch(atualizaEstadoFiltro("cargos", [{ data }]));
     };
     const fetchEstados = async () => {
       const data = await getEstados();
-      atualizaEstadoFiltro("estados", [{ data }]);
+      dispatch(atualizaEstadoFiltro("estados", [{ data }]));
     };
 
     const fetchEstadosCivis = async () => {
       const data = await getEstadoCivil();
-      atualizaEstadoFiltro("estadosCivis", [{ data }]);
+      dispatch(atualizaEstadoFiltro("estadosCivis", [{ data }]));
     };
 
     const fetchCorRaca = async () => {
       const data = await getCorRaca();
-      atualizaEstadoFiltro("coresRacas", [{ data }]);
+      dispatch(atualizaEstadoFiltro("coresRacas", [{ data }]));
     };
 
     const fetchGeneros = async () => {
       const data = await getGeneros();
-      atualizaEstadoFiltro("generos", [{ data }]);
+      dispatch(atualizaEstadoFiltro("generos", [{ data }]));
     };
 
     const fetchOcupacao = async () => {
       const data = await getOcupacao();
-      atualizaEstadoFiltro("ocupacoes", [{ data }]);
+      dispatch(atualizaEstadoFiltro("ocupacoes", [{ data }]));
     };
 
     const fetchPartidos = async () => {
       const dataPartidos = await getPartidos();
-      const dataFederacoes = await getFederacoes();
       const objPartidos = [
         { titulo: "Espectro Político", data: ESPECTRO_POLITICO },
-        { titulo: "Federações", data: dataFederacoes },
-        { titulo: "Partidos", data: dataPartidos },
+        {
+          titulo: "Partidos",
+          data: dataPartidos.map((partido) => ({
+            codigo: partido.numero,
+            nome: partido.nome,
+          })),
+        },
       ];
-      atualizaEstadoFiltro("partidos", objPartidos);
+      dispatch(atualizaEstadoFiltro("partidos", objPartidos));
     };
 
     const fetchGrauInstrucao = async () => {
       const data = await getGrausInstrucao();
-      atualizaEstadoFiltro("instrucoes", [{ data }]);
+      dispatch(atualizaEstadoFiltro("instrucoes", [{ data }]));
     };
 
     return () =>
@@ -85,31 +93,46 @@ function Filtro() {
         fetchGrauInstrucao(),
         fetchEstadosCivis(),
       ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (event, nomeFiltro) => {
-    const obj = {
-      type: TiposAcoes.ATUALIZA_SELECAO,
-      payload: { nome: nomeFiltro, dados: event.target.value },
-    };
-    dispatch(obj);
+    dispatch(atualizaSelecaoFiltro(event.target.value, nomeFiltro));
   };
 
-  const reiniciaForm = () => {
-    const obj = {
-      type: TiposAcoes.REINICIA_SELECAO,
-      payload: { dados: ESTADO_INICIAL.selecionados },
+  const handleSwitchChange = (event, nomeFiltro) => {
+    dispatch(
+      atualizaSelecaoFiltro(event.target.checked ? "S" : "N", nomeFiltro)
+    );
+  };
+
+  const reiniciarFiltro = () => {
+    dispatch(reiniciaForm());
+  };
+
+  const buscarCandidatos = () => {
+    console.log(selecionados);
+    const fetchCandidatos = async () => {
+      const data = await getCandidatos(selecionados);
+      dispatch(atualizaCandidatos(data));
     };
-    dispatch(obj);
+
+    fetchCandidatos();
   };
 
   return (
     <div className="filtro">
+      {/* <SearchBox
+        id="nome"
+        label="Nome"
+        selectedList={selecionados}
+        handlerEvent={handleChange}
+      /> */}
       <MultiSelect
         id="cargos"
         label="Cargo"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -117,21 +140,20 @@ function Filtro() {
       <MultiSelect
         id="estados"
         label="Estados"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
         disabled={
-          state.selecionados.cargos.length === 1 &&
-          state.selecionados.cargos.includes("1")
+          selecionados.cargos.length === 1 && selecionados.cargos.includes("1")
         }
       />
       <MultiSelect
         id="partidos"
         label="Partido / Espectro Político"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -139,8 +161,8 @@ function Filtro() {
       <MultiSelect
         id="generos"
         label="Gênero"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -148,8 +170,8 @@ function Filtro() {
       <MultiSelect
         id="coresRacas"
         label="Cor/Raça"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -157,8 +179,8 @@ function Filtro() {
       <MultiSelect
         id="estadosCivis"
         label="Estado Civil"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -166,8 +188,8 @@ function Filtro() {
       <MultiSelect
         id="instrucoes"
         label="Instrução"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
@@ -175,20 +197,33 @@ function Filtro() {
       <MultiSelect
         id="ocupacoes"
         label="Ocupação"
-        selectedList={state.selecionados}
-        optionList={state.filtros}
+        selectedList={selecionados}
+        optionList={filtros}
         keyField="codigo"
         valueField="nome"
         handlerEvent={handleChange}
       />
+      <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              onChange={(event) => handleSwitchChange(event, "reeleicao")}
+            />
+          }
+          label="Somente candidatos à reeleição"
+        />
+      </FormGroup>
       <hr />
       <Stack spacing={2} direction="row">
-        <Button variant="outlined" onClick={reiniciaForm}>
+        <Button variant="outlined" onClick={reiniciarFiltro}>
           Reiniciar
         </Button>
-        <Button variant="contained">Buscar</Button>
+        <Button variant="contained" onClick={buscarCandidatos}>
+          Buscar
+        </Button>
       </Stack>
     </div>
   );
 }
+
 export default Filtro;

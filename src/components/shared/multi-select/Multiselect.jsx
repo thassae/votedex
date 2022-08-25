@@ -32,7 +32,6 @@ const MultiSelect = (props) => {
     handlerEvent,
     disabled,
   } = props;
-  console.log(optionList);
   return (
     <Box sx={{ minWidth: 250 }}>
       <FormControl fullWidth size="small">
@@ -46,7 +45,9 @@ const MultiSelect = (props) => {
           onChange={(event) => handlerEvent(event, id)}
           input={<OutlinedInput label={label} />}
           renderValue={(selected) => {
-            const allOptions = optionList[id].flatMap((options) => options.data);
+            const allOptions = optionList[id].flatMap(
+              (options) => options.data
+            );
             const names = allOptions.filter((item) =>
               selected.includes(item[keyField])
             );
