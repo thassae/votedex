@@ -1,7 +1,11 @@
-import WarningIcon from "@mui/icons-material/Warning";
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import DoNotDisturbAltIcon from "@mui/icons-material/DoNotDisturbAlt";
+import ReportIcon from "@mui/icons-material/Report";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import CircularProgress from "@mui/material/CircularProgress";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import "./TabelaCandidatos.scss";
 const url =
@@ -16,15 +20,33 @@ const RenderCandidatoLink = (props) => {
       <a href={urlCandidato} target="_blank">
         {value}
       </a>
-
       {row.st_reeleicao === "S" && (
-        <Chip
-          sx={{ margin: 2 }}
-          icon={<WarningIcon />}
-          size="small"
-          label="Reeleição"
-          color="warning"
-        />
+        <Tooltip title="Candidato(a) à reeleição.">
+          <IconButton>
+            <AutorenewIcon color="info" fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
+      {row.ds_situacao_candidatura === "INAPTO" && (
+        <Tooltip title="Candidato(a) não pode concorrer.">
+          <IconButton>
+            <DoNotDisturbAltIcon color="error" fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
+      {row.ds_situacao_candidatura === "CADASTRADO" && (
+        <Tooltip title="Candidato(a) aguardando julgamento de candidatura pelo TSE.">
+          <IconButton>
+            <ReportIcon color="warning" fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
+      {row.ds_situacao_candidatura === "APTO" && (
+        <Tooltip title="Candidato(a) com candidatura aprovada pelo TSE.">
+          <IconButton>
+            <ThumbUpIcon color="success" fontSize="small" />
+          </IconButton>
+        </Tooltip>
       )}
     </strong>
   );
@@ -109,8 +131,45 @@ export default function TabelaCandidatos(props) {
       candidatos[0] !== "" ? (
         <>
           <div className="mobileInstructions">
-            <strong>Usuários de celular:&nbsp;</strong>por favor, toquem na
-            tabela e deslizem para os lados para visualizar mais informações.
+            <div>
+              <strong>Usuários de celular:&nbsp;</strong>por favor, toquem na
+              tabela e deslizem para os lados para visualizar mais informações.
+            </div>
+          </div>
+          <div className="legenda">
+            <strong>Legenda:&nbsp;</strong>
+            <div>
+              <Tooltip title="Candidato(a) à reeleição.">
+                <IconButton>
+                  <AutorenewIcon color="info" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              Candidato(a) à reeleição.
+            </div>
+            <div>
+              <Tooltip title="Candidato(a) não pode concorrer.">
+                <IconButton>
+                  <DoNotDisturbAltIcon color="error" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              Candidato(a) não pode concorrer.
+            </div>
+            <div>
+              <Tooltip title="Candidato(a) aguardando julgamento pelo TSE.">
+                <IconButton>
+                  <ReportIcon color="warning" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              Candidato(a) aguardando julgamento pelo TSE.
+            </div>
+            <div>
+              <Tooltip title="Candidato(a) aprovado pelo TSE.">
+                <IconButton>
+                  <ThumbUpIcon color="success" fontSize="small" />
+                </IconButton>
+              </Tooltip>
+              Candidato(a) aprovado pelo TSE.
+            </div>
           </div>
           <DataGrid
             autoHeight
