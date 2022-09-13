@@ -177,8 +177,8 @@ export default function TabelaCandidatos(props) {
             getRowId={(row) => row._id}
             rows={candidatos}
             columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
+            pageSize={20}
+            rowsPerPageOptions={[20]}
             checkboxSelection={false}
             disableSelectionOnClick={false}
           />
